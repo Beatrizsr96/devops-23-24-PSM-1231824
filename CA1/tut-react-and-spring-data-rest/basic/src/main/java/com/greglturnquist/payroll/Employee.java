@@ -32,15 +32,36 @@ public class Employee {
 	private String firstName;
 	private String lastName;
 	private String description;
-	private String jobTitle
+	private int jobYears;
 
 	public Employee() {}
 
-	public Employee(String firstName, String lastName, String description, String jobTitle) {
+	public Employee(String firstName, String lastName, String description, int jobYears) throws IllegalArgumentException {
+
+		if(!validArguments(firstName, lastName, description, jobYears)) {
+			throw new IllegalArgumentException("Employee has not been properly configured. Please insert data correctly.");
+		}
+
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.description = description;
-		this.jobTitle = jobTitle;
+		this.jobYears = jobYears;
+	}
+
+	private boolean validArguments(String firstName, String lastName, String description, int jobYears) {
+		if(firstName == null || firstName.isEmpty()) {
+			return false;
+		}
+		if (lastName == null || lastName.isEmpty()) {
+			return false;
+		}
+		if (description == null || description.isEmpty()) {
+			return false;
+		}
+		if (jobYears < 0) {
+			return false;
+		}
+		return true;
 	}
 
 	@Override
@@ -52,13 +73,14 @@ public class Employee {
 			Objects.equals(firstName, employee.firstName) &&
 			Objects.equals(lastName, employee.lastName) &&
 			Objects.equals(description, employee.description) &&
-			Objects.equals(jobTilte. employee.jobTitle);
+			Objects.equals(jobYears, employee.jobYears);
+
 	}
 
 	@Override
 	public int hashCode() {
 
-		return Objects.hash(id, firstName, lastName, description, jobTitle);
+		return Objects.hash(id, firstName, lastName, description, jobYears);
 	}
 
 	public Long getId() {
@@ -93,12 +115,12 @@ public class Employee {
 		this.description = description;
 	}
 
-	public String getJobTitle() {
-		return this.jobTitle;
+	public int getJobYears() {
+		return this.jobYears;
 	}
 	
-	public void setJobTitle(String jobTitle) {
-		this.jobTitle = jobTitle;
+	public void setJobYears(int jobYears) {
+		this.jobYears = jobYears;
 	}
 
 	@Override
@@ -108,7 +130,7 @@ public class Employee {
 			", firstName='" + firstName + '\'' +
 			", lastName='" + lastName + '\'' +
 			", description='" + description + '\'' +
-			", jobTitle='" + jobTitle + '\'' +
+			", jobTitle='" + jobYears + '\'' +
 			'}';
 	}
 }
