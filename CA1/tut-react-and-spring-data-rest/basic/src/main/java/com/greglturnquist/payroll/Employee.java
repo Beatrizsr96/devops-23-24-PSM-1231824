@@ -61,6 +61,12 @@ public class Employee {
 		if (jobYears < 0) {
 			return false;
 		}
+<<<<<<< HEAD
+=======
+		if(email == null || email.isEmpty()){
+			return false;
+		}
+>>>>>>> email-field
 		return true;
 	}
 
@@ -73,7 +79,12 @@ public class Employee {
 			Objects.equals(firstName, employee.firstName) &&
 			Objects.equals(lastName, employee.lastName) &&
 			Objects.equals(description, employee.description) &&
+<<<<<<< HEAD
 			Objects.equals(jobYears, employee.jobYears);
+=======
+			Objects.equals(jobYears, employee.jobYears) &&
+			Objects.equals(email, employee.email);
+>>>>>>> email-field
 
 	}
 
