@@ -117,4 +117,14 @@ class EmployeeTest {
 		String email = "";
 		assertThrows(IllegalArgumentException.class, () -> new Employee(firstName,lastName,description,jobYears,email));
 	}
+
+	@Test
+	void invalidEmployeeCreatedEmailWithoutArroba() throws IllegalArgumentException {
+		String firstName = "Frodo";
+		String lastName = "Baggins";
+		String description = "ring bearer";
+		int jobYears = 1;
+		String email = "frodo.bagginslive.org";
+		assertThrows(IllegalArgumentException.class, () -> new Employee(firstName,lastName,description,jobYears,email));
+	}
 }
