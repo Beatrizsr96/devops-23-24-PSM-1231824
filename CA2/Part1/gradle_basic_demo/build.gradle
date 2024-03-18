@@ -77,3 +77,11 @@ task backupSources(type: Copy) {
     from 'src'
     into 'backup'
 }
+
+task zipSources(type: Zip) {
+    group = "DevOps"
+    description = "Creates a zip archive of source code"
+    from 'src'
+    archiveFileName = 'source_code.zip'
+    destinationDirectory = file("$buildDir/distributions")
+}
