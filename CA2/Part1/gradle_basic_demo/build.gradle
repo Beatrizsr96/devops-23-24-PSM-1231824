@@ -70,3 +70,10 @@ task runServer(type:JavaExec, dependsOn: classes){
 
     args '59001'
 }
+
+task backupSources(type: Copy) {
+    group = "DevOps"
+    description = "Copies source code into 'backup' folder"
+    from 'src'
+    into 'backup'
+}
