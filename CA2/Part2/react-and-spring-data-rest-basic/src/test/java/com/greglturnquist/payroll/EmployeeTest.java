@@ -104,7 +104,7 @@ class EmployeeTest {
 		String lastName = "Baggins";
 		String description = "ring bearer";
 		int jobYears = 1;
-		String email = null;
+		String email = "tretwt.com";
 		assertThrows(IllegalArgumentException.class, () -> new Employee(firstName,lastName,description,jobYears,email));
 	}
 
