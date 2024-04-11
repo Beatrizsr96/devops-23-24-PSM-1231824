@@ -38,7 +38,7 @@ task cleanWebpack(type: Delete) {
 	delete 'src/main/resources/static/built/**'
 }
 
-clean.dependsOn(cleanWebpack)
+clean.dependsOn cleanWebpack
 
 frontend {
 	nodeVersion = '16.20.2'
