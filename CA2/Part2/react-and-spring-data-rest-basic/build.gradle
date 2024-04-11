@@ -28,6 +28,12 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+task copyJar(type: Copy) {
+	from 'build/libs'
+	into 'dist'
+	include '*.jar'
+}
+
 frontend {
 	nodeVersion = '16.20.2'
 	assembleScript = 'run build'
