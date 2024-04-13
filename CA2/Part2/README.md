@@ -107,3 +107,142 @@ git tag ca2-part2
 During the assignment's development, issues arose with the frontend plugin implementation, causing project compilation problems. Troubleshooting revealed that the plugin wasn't functioning correctly, leading to additional commits as efforts were made to resolve the issue. Despite attempts to build the project before adding the package manager, certain generated files were inadvertently included, hindering compilation. Consequently, the assignment had to be restarted to address these setbacks.
 
 After restarting and incorporating the package manager section into the build.gradle file, the project compiled successfully, and the frontend plugin began working as intended. Additional tasks, including copyJar and deleteWebpackFiles, were implemented without issue, and the project was subsequently merged into the master branch. With these updates, the assignment was completed successfully, and all changes were pushed to the repository.
+
+
+
+## Alternative implementation solution - Maven
+
+### Analysis
+An alternative solution to the assignment would be to use Maven instead of Gradle. Maven is a build automation tool used primarily for Java projects. Maven and Gradle are both build automation tools, but they have different approaches to project configuration and dependency management. Maven relies on XML-based configuration files (pom.xml), while Gradle uses a Groovy-based DSL (Domain Specific Language). The steps to implement the changes using Maven would be:
+
+**Adding Frontend Build Automation:** Maven can handle frontend build automation using plugins like the frontend-maven-plugin, similar to the org.siouan.frontend Gradle plugin. This plugin integrates Node.js and npm into the Maven build process, allowing frontend assets to be managed and built alongside Java code.
+
+**Copying Generated JAR:** Maven's maven-resources-plugin can be used to copy the generated JAR file to a specified directory. This plugin allows for copying resources during the build process, which can include the JAR file produced by the Maven build.
+
+**Cleaning Webpack-generated Files:** Maven's maven-clean-plugin can be configured to delete specific files or directories, such as Webpack-generated files in the src/resources/main/static/built/ directory. This plugin ensures that the project is cleaned before the clean task is executed.
+
+
+### Implementation 
+To achieve the same goals as presented in the assignment using Maven, we would follow a similar approach but with Maven-specific configurations:
+#### 1. Create a new Maven project
+```bash
+mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+```
+
+#### 2. Frontend Integration
+**Frontend Plugin:** 
+- To integrate and manage frontend tasks, the `frontend-maven-plugin` was utilized. It was configured to install Node and npm, run npm install, and execute Webpack builds.
+  
+    ```xml
+    <plugin>
+        <groupId>com.github.eirslett</groupId>
+        <artifactId>frontend-maven-plugin</artifactId>
+        <version>1.9.1</version>
+        <configuration>
+            <nodeVersion>v16.13.0</nodeVersion>
+            <npmVersion>6.14.8</npmVersion>
+        </configuration>
+        <executions>
+            <execution>
+                <goals>
+                    <goal>install-node-and-npm</goal>
+                    <goal>npm</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+    ```
+**Webpack and `package.json`:**
+- The same `package.json` configurations were applied to facilitate npm scripts for building and cleaning the frontend.
+
+#### 3. Packaging for Distribution
+**Maven Assembly Plugin:** 
+- The Maven Assembly Plugin was configured to package the application into a distributable JAR, including all its dependencies.
+    ```xml
+    <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <configuration>
+            <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+            </descriptorRefs>
+            <archive>
+                <manifest>
+                    <mainClass>com.example.Application</mainClass>
+                </manifest>
+            </archive>
+        </configuration>
+    </plugin>
+    ```
+
+### 4. Copy the generated jar file to the target directory
+**Maven Resources Plugin:** 
+- Used to copy the generated JAR file to the target directory.
+    ```xml
+    <plugin>
+        <artifactId>maven-resources-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+            <execution>
+                <id>copy-resources</id>
+                <phase>package</phase>
+                <goals>
+                    <goal>copy-resources</goal>
+                </goals>
+                <configuration>
+                    <outputDirectory>${project.build.directory}/target</outputDirectory>
+                    <resources>
+                        <resource>
+                            <directory>${project.build.directory}</directory>
+                            <includes>
+                                <include>*.jar</include>
+                            </includes>
+                        </resource>
+                    </resources>
+                </configuration>
+            </execution>
+        </executions>
+    </plugin>
+    ```
+
+#### 5. Cleaning Up Webpack Artifacts
+**Maven Clean Plugin:** 
+- Customized to remove the Webpack-generated files before the clean process.
+    ```xml
+    <plugin>
+        <artifactId>maven-clean-plugin</artifactId>
+        <version>3.1.0</version>
+        <configuration>
+            <filesets>
+                <fileset>
+                    <directory>src/main/resources/static/built</directory>
+                </fileset>
+            </filesets>
+        </configuration>
+    </plugin>
+    ```
+
+#### 6. Compile the project
+
+```bash
+mvn clean install
+```
+
+#### 7. Add all the files to the staging area
+
+```bash
+git add .
+```
+
+#### 8. Commit the changes
+
+```bash
+git commit -m "Added the Maven build automation tool"
+```
+
+#### 9. Push the changes to the repository
+
+```bash
+git push
+```
+
+By following this approach, you can achieve the same goals as presented in the assignment using Maven as an alternative to Gradle for build automation.
