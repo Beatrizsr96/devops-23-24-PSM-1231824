@@ -104,11 +104,8 @@ git push origin tut-basic-gradle
 git tag ca2-part2
 ```
 
-During the assignment's development, issues arose with the frontend plugin implementation, causing project compilation problems. Troubleshooting revealed that the plugin wasn't functioning correctly, leading to additional commits as efforts were made to resolve the issue. Despite attempts to build the project before adding the package manager, certain generated files were inadvertently included, hindering compilation. Consequently, the assignment had to be restarted to address these setbacks.
 
-After restarting and incorporating the package manager section into the build.gradle file, the project compiled successfully, and the frontend plugin began working as intended. Additional tasks, including copyJar and deleteWebpackFiles, were implemented without issue, and the project was subsequently merged into the master branch. With these updates, the assignment was completed successfully, and all changes were pushed to the repository.
-
-
+During the assignment's development, issues were encountered with the frontend plugin implementation, causing compilation problems for the project. After thorough troubleshooting, was discovered that the plugin wasn't functioning correctly. After integrating the package manager section into the build.gradle file, the project compiled successfully, and the frontend plugin began functioning as intended. Additional tasks were added, such as copyJar and deleteWebpackFiles, without encountering any issues. Subsequently, the project was merged into the master branch. With these updates, we successfully completed the assignment, ensuring all changes were pushed to the repository.
 
 ## Alternative implementation solution - Maven
 
