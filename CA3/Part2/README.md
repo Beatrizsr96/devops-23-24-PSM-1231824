@@ -145,8 +145,7 @@ After this, you can commit your Vagrantfile into your repository.
 
 ## Conclusions
 Vagrant and VirtualBox are powerful tools that complement each other, with Vagrant providing a higher-level abstraction for managing virtual environments and VirtualBox offering robust virtualization capabilities. 
-
-
+During the implementation of CA3/Part2 issues were encounter when building Spring Data Application with vagrantfile. Build succeded once, after updating vagrantfile with ubuntu/focal and JDK version to 17. Second time running vagrantfile, build failed, but the employee table was displayed in browser. After researching about this issue, I updated application.properties in order to stablish communication with database (h2). Task AssembleFronted continued failing.   
 
 # Alternative Solution Using VMware
 
@@ -179,7 +178,7 @@ In this alternative solution, we'll use VMware to create and manage virtual mach
 
 1. Download and Install VMware
 
-Download and install VMware Workstation (MAC) or VMware Fusion (Windows and Linux) on your machine.
+Download and install VMware Workstation (Windows and Linux) or VMware Fusion (Mac) on your machine.
 
 ### Part 2: Creating Vagrantfile for Your Repository
 **Vagrantfile:**
