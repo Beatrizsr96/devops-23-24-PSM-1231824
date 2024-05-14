@@ -15,8 +15,11 @@ VirtualBox supports a variety of network modes, including NAT, bridged, host-onl
 
 ### Part 1: Initial Setup
 Study the Vagrantfile provided in the repository "https://bitbucket.org/pssmatos/vagrant-multi-spring-tut-demo/" to understand how it creates and provisions two VMs: 
-	- "web" for running Tomcat and the Spring Boot application;
-	- "db" for executing the H2 server database.
+	- VM "web" for running Tomcat and the Spring Boot application;
+	- Vm "db" for executing the H2 server database.
+ Both Vms have an IP defined:
+ 	- 192.168.56.10 for VM "web"
+  	- 192.168.56.11 for VM "db"
 
 ### Part 2: Copying Vagrantfile to Your Repository
 Create a directory "CA3/Part2".
