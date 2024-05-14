@@ -1,16 +1,14 @@
 # Technical Report: Setting up Virtual Environment with Vagrant
 # Overview
 
-In Part 2, a virtual environment was setted up using Vagrant to execute a Spring Boot application (gradle "basic" version), focusing on virtualization with Vagrant.
+Part 2 of the project involved setting up a virtual environment using Vagrant to execute a Spring Boot application (gradle "basic" version), with a focus on virtualization. This report provides an analysis of Vagrant and VirtualBox, along with detailed steps for replicating the setup.
 
 ## Vagrant Analysis
 Vagrant allows defining virtual environments as code using a simple and reproducible configuration file (Vagrantfile). Supports various virtualization and cloud providers, including VirtualBox, VMware, Hyper-V, Docker, and more. Vagrant provides built-in support for provisioning tools like shell scripts, enabling automated software configuration. 
 Vagrant environments can be version-controlled using Git, allowing teams to collaborate efficiently. Ensures consistent environments across different development machines, reducing the problems like, things that work on our machine and don't work on a different machine (specially when working with different operating systems).
 
 ## VirtualBox Analysis
-VirtualBox is available for Windows, macOS, Linux, and Solaris, providing consistent virtualization capabilities across different operating systems. It offers guest additions that enhance the virtual machine's performance and integration with the host system, including shared folders, clipboard integration, and dynamic screen resizing. 
-
-VirtualBox supports a variety of network modes, including NAT, bridged, host-only, and internal networking, offering flexibility in configuring network connectivity. VirtualBox provides an extensive API and SDK for automation, integration with third-party tools, and customization of virtual machine settings.
+VirtualBox provides consistent virtualization capabilities across different operating systems, including Windows, macOS, Linux, and Solaris. It offers guest additions that enhance virtual machine performance and integration with the host system, such as shared folders, clipboard integration, and dynamic screen resizing. VirtualBox supports various network modes, providing flexibility in configuring network connectivity. Additionally, it offers an extensive API and SDK for automation, integration with third-party tools, and customization of virtual machine settings.
 
 
 ### Part 1: Initial Setup
@@ -103,9 +101,9 @@ Vagrant.configure("2") do |config|
       # sudo apt-get install nodejs -y
       # sudo apt-get install npm -y
       # sudo ln -s /usr/bin/nodejs /usr/bin/node
-      sudo apt install -y tomcat9 tomcat9-admin
+      sudo apt install -y tomcat10 tomcat10-admin
       # If you want to access Tomcat admin web page do the following:
-      # Edit /etc/tomcat9/tomcat-users.xml
+      # Edit /etc/tomcat10/tomcat-users.xml
       # uncomment tomcat-users and add manager-gui to tomcat user
 
       # Change the following command to clone your own repository!
@@ -135,20 +133,23 @@ If you need to update your vagrantfile and rerun it again, you'll need to delete
 
 For this matter you can run the following command for each VM:
 ```bash
-# remove db VM
-vagrant destroy db
+#stop VMs
+vagrant halt
 
-#remove web VM
-vagrant destroy web
+# remove VMs
+vagrant destroy
 ```
-You can also use your VM reference. If you run `vagrant  global -status` you'll have access to your existing VMs and respective reference. 
+If you run `vagrant  global -status` you'll have access to your existing VMs and respective reference. 
 
 ### Part 5: Committing Changes
 After this, you can commit your Vagrantfile into your repository.
 
 ## Conclusions
-Vagrant and VirtualBox are powerful tools that complement each other, with Vagrant providing a higher-level abstraction for managing virtual environments and VirtualBox offering robust virtualization capabilities. 
-During the implementation of CA3/Part2 issues were encounter when building Spring Data Application with vagrantfile. Build succeded once, after updating vagrantfile with ubuntu/focal and JDK version to 17. Second time running vagrantfile, build failed, but the employee table was displayed in browser. After researching about this issue, I updated application.properties in order to stablish communication with database (h2). Task AssembleFronted continued failing.   
+Vagrant and VirtualBox are powerful tools that complement each other, offering automation and virtualization capabilities, respectively. By using Vagrant with VirtualBox, developers can efficiently manage virtual environments, automate software configuration, and ensure consistency across development machines.
+
+During the implementation of CA3/Part2 issues were encounter during build process with vagrantfile. Build succeded once, after updating vagrantfile with ubuntu/focal and JDK version to 17. Second time running vagrantfile, build failed (couldn't run AssembleFronted Task), but the employee table was displayed in browser. After researching about this issue, I updated application.properties in order to stablish communication with database (h2) and attempted to use tomcat10 version (instead of tomcat9), once having the wrong version can cause configuration errors, unexpected behaviors or even performance issues. Task AssembleFronted continued failing.
+
+Although the technical part of this Part2 wasn't well succeded, ultimately, can assume that I understand the benefits and features of using Vagrant as an automation tool. This one with VirtualBox, can provide great produtivity and time management benefits by using scripts that create and configurate VMs, install plugins and tools, clone repositories and run build-tools (such as gradle), and much more. Skiping all this manual proccesses by running just one command as `vagrant up` can lead to increased productivity and time management.
 
 # Alternative Solution Using VMware
 
