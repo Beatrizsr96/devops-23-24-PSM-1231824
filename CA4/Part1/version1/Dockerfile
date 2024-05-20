@@ -1,8 +1,6 @@
 FROM gradle:jdk17 AS builder
-LABEL author="Beatriz Rodrigues"
 
 WORKDIR /CA4/Part1
-
 
 RUN git clone https://bitbucket.org/pssmatos/gradle_basic_demo.git
 
@@ -17,8 +15,8 @@ FROM openjdk:17-jdk-slim
 
 WORKDIR /CA4/Part1
 
-# Bundle app source
+# Copy the built JAR file from the first stage
 COPY --from=builder /CA4/Part1/gradle_basic_demo/build/libs/*.jar CA4/Part1.jar
 
-
+# Specify the command to run the application
 ENTRYPOINT ["java", "-cp", "CA4/Part1.jar", "basic_demo.ChatServerApp", "59001"]
