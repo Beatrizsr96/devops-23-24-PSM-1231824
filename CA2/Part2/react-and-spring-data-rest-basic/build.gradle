@@ -46,3 +46,7 @@ frontend {
 	cleanScript = 'run clean'
 	checkScript = 'run check'
 }
+
+tasks.withType(Javadoc) {
+	enabled = false
+}
