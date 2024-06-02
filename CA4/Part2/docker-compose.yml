@@ -1,0 +1,32 @@
+services:
+  db:
+    build:
+      context: .
+      dockerfile: Dockerfile-db
+    ports:
+      - "8082:8082"
+      - "9092:9092"
+    volumes:
+      - ./data:/usr/src/data-backup
+    networks:
+      default:
+        ipv4_address: 192.168.33.11
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile-web
+    ports:
+      - "8080:8080"
+    networks:
+      default:
+        ipv4_address: 192.168.33.10
+    depends_on:
+      - "db"
+
+networks:
+  default:
+    ipam:
+      driver: default
+      config:
+        - subnet: 192.168.33.0/24

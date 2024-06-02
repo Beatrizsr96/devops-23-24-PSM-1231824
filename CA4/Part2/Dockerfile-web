@@ -1,0 +1,16 @@
+FROM gradle:jdk21
+RUN apt-get update && apt-get install -y dos2unix
+
+WORKDIR /app
+
+COPY . /app
+
+RUN ls -la
+# Ensure the gradlew script is executable and build the application
+RUN chmod +x ./react-and-spring-data-rest-basic/gradlew && dos2unix ./react-and-spring-data-rest-basic/gradlew
+
+CMD ["./react-and-spring-data-rest-basic/gradlew", "build"]
+
+# Configure the container to run as an executable
+CMD ["./react-and-spring-data-rest-basic/gradlew", "bootRun"]
+
