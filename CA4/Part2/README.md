@@ -196,6 +196,41 @@ docker-compose down
 
 **Note:** Unlike docker stop, docker-compose down stops and removes all the containers, and networks created by docker-compose up.
 
-## Conlusions
+## Conclusions
 This assignment provided an introduction to Docker and Docker Compose, essential tools for software deployment. By completing the steps outlined, several key concepts, practices in containerization and multi-container application management were demonstrated.
 Overall, this assignment encapsulates many of the core principles and practical skills needed for modern software development and DevOps practices. Mastery of these concepts and tools not only improves development efficiency but also prepares for more advanced topics in microservices, cloud computing, and continuous integration/continuous deployment workflows.
+
+## Alternative to Docker (Kubernets)
+
+Kubernets manages and organizes multiple containers across many computers (cluster). It has as main control point an API Server, decides which computer runs what, handles various controllers. It uses **Kubelet** to manaige containers on each computer.
+It's reat for running large, complex applications with many parts and helps with scaling (adding more resources as needed), balancing loads, and recovering from failures automatically.
+
+### Main differences between Docker and Kubernets
+
+1.Scope:
+
+- Docker is about creating and running containers.
+
+
+- Kubernetes is about managing many containers across multiple machines.
+
+
+2.Complexity:
+
+- Docker is simpler and easier to start with.
+
+
+- Kubernetes is more complex but powerful for managing lots of containers.
+
+
+3.Integration:
+
+- Docker can be used alone or as part of Kubernetes for container orchestration.
+
+
+- Kubernetes can use Docker to run containers but also works with other tools.
+
+
+## Conclusions about this alternative
+
+Both are essential tools in modern application development and deployment, often used together. Docker simplifies container creation, while Kubernetes handles large-scale container management.
