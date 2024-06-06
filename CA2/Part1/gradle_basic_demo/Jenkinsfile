@@ -1,0 +1,34 @@
+pipeline {
+	agent any
+
+	stages {
+		stage('Checkout') {
+			steps {
+				echo 'Checking out...'
+				git 'https://github.com/Beatrizsr96/devops-23-24-PSM-1231824'
+			}
+ 		}
+
+		stage('Assemble') {
+            		steps {
+               			echo 'Assembling...'
+                		sh './gradlew assemble'
+            		}
+        	}
+
+  		stage('Test') {
+            		steps {
+                		echo 'Testing...'
+                		sh './gradlew test'
+                		junit 'build/test-results/test/*.xml'
+            		}
+        	}
+
+		stage('Archiving'){
+ 			steps {
+				echo 'Archiving...'
+				archiveArtifacts 'build/distributions/*'
+ 			}
+		}
+	}
+}
