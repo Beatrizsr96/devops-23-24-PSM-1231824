@@ -1,0 +1,47 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out...'
+                git 'https://github.com/Beatrizsr96/devops-23-24-PSM-1231824'
+            }
+        }
+
+        stage('Assemble') {
+            steps {
+                echo 'Assembling...'
+                sh '''
+                    cd ./CA2/Part1/gradle_basic_demo
+                    ls -la
+                    chmod +x ./gradlew
+                    ./gradlew assemble
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh '''
+                    cd ./CA2/Part1/gradle_basic_demo
+                    ls -la
+                    ./gradlew test
+                '''
+            }
+            post {
+                always {
+                    junit '**/build/test-results/**/*.xml'
+                }
+            }
+        }
+
+        stage('Archiving') {
+            steps {
+                echo 'Archiving...'
+                archiveArtifacts 'CA2/Part1/gradle_basic_demo/build/distributions/*'
+            }
+        }
+    }
+}
