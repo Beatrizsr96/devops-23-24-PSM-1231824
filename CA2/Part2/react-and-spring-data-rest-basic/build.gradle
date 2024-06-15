@@ -48,5 +48,5 @@ frontend {
 }
 
 tasks.withType(Javadoc) {
-	enabled = false
+	enabled = true
 }
