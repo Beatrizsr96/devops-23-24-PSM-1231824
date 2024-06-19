@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/DevRep.iml" filepath="$PROJECT_DIR$/.idea/DevRep.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/react-and-spring-data-rest-basic.iml" filepath="$PROJECT_DIR$/.idea/modules/react-and-spring-data-rest-basic.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/react-and-spring-data-rest-basic.main.iml" filepath="$PROJECT_DIR$/.idea/modules/react-and-spring-data-rest-basic.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/react-and-spring-data-rest-basic.test.iml" filepath="$PROJECT_DIR$/.idea/modules/react-and-spring-data-rest-basic.test.iml" />
     </modules>

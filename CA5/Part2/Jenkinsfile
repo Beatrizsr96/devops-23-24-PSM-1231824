@@ -1,0 +1,92 @@
+pipeline {
+    agent any
+
+    environment {
+        DOCKER_CREDENTIALS_ID = "docker-hub-credentials"
+        DOCKER_IMAGE = "1231824/jenkins"
+        DOCKER_TAG = "${env.BUILD_ID}"
+    }
+
+
+    stages {
+        stage('Checkout') {
+            steps {
+                echo 'Checking out...'
+                git 'https://github.com/Beatrizsr96/devops-23-24-PSM-1231824.git'
+            }
+        }
+
+        stage('Assemble') {
+            steps {
+                echo 'Assembling...'
+                sh '''
+                    cd ./CA2/Part2/react-and-spring-data-rest-basic
+                    chmod +x ./gradlew
+                    ./gradlew assemble
+                '''
+            }
+        }
+
+        stage('Test') {
+            steps {
+                echo 'Testing...'
+                sh '''
+                    cd ./CA2/Part2/react-and-spring-data-rest-basic
+                    ./gradlew test
+                '''
+            }
+            post {
+                always {
+                    junit '**/build/test-results/**/*.xml'
+                }
+            }
+        }
+
+        stage('Generate Javadoc') {
+            steps {
+                echo 'Generating Javadoc...'
+                sh '''
+                    cd ./CA2/Part2/react-and-spring-data-rest-basic
+                    ./gradlew javadoc
+                '''
+            }
+            post {
+                success {
+                    publishHTML(target: [
+                        allowMissing         : false,
+                        alwaysLinkToLastBuild: false,
+                        keepAll              : true,
+                        reportDir            : 'CA2/Part2/react-and-spring-data-rest-basic/build/docs/javadoc',
+                        reportFiles          : 'index.html',
+                        reportName           : 'Javadoc'
+                    ])
+                }
+            }
+        }
+
+        stage('Archiving') {
+            steps {
+                echo 'Archiving...'
+                archiveArtifacts artifacts: 'CA2/Part2/react-and-spring-data-rest-basic/build/libs/*.war', allowEmptyArchive: true
+            }
+        }
+
+
+        stage('Publish Image') {
+            steps {
+                script {
+                    dir('CA5/Part2') {
+                        echo 'Building and publishing Docker image...'
+                        docker.withRegistry('https://index.docker.io/v1/', "${DOCKER_CREDENTIALS_ID}") {
+                            dir('CA2/Part2/react-and-spring-data-rest-basic') {
+                                def customImage = docker.build("${DOCKER_IMAGE}:${DOCKER_TAG}")
+                                customImage.push()
+                                customImage.push('latest')
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

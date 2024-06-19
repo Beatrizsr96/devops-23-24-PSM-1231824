@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<module external.linked.project.id="react-and-spring-data-rest-basic" external.linked.project.path="$MODULE_DIR$/../../CA2/Part2/react-and-spring-data-rest-basic" external.root.project.path="$MODULE_DIR$/../../CA2/Part2/react-and-spring-data-rest-basic" external.system.id="GRADLE" external.system.module.group="com.greglturnquist" external.system.module.version="0.0.1-SNAPSHOT" type="JAVA_MODULE" version="4">
-  <component name="AdditionalModuleElements">
-    <content url="file://$MODULE_DIR$/../../CA2/Part2/react-and-spring-data-rest-basic" dumb="true">
-      <excludeFolder url="file://$MODULE_DIR$/../../CA2/Part2/react-and-spring-data-rest-basic/.gradle" />
-      <excludeFolder url="file://$MODULE_DIR$/../../CA2/Part2/react-and-spring-data-rest-basic/build" />
-    </content>
-  </component>
-</module>
